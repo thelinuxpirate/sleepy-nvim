@@ -1,10 +1,12 @@
--- if anything has to be ran as an init run add it here
+-- if anything has to be ran as init add it here
 function init()
-	local initMsg = "Loading Requirements..."
+	local initMsg = "Loading Sleepy-Init..."
 	print(initMsg)
+  vim.g.loaded_netrw       = 1
+  vim.g.loaded_netrwPlugin = 1
 	require("plugins")
+  require("keybindings")
 	require("theme")
-	require("keybindings")
   end
 
 init()

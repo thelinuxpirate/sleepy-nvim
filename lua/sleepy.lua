@@ -1,15 +1,17 @@
--- if anything has to be ran as init add it here
-function init()
-	local initMsg = "Loading Sleepy-Init..."
-	print(initMsg)
-  vim.g.loaded_netrw       = 1
-  vim.g.loaded_netrwPlugin = 1
-	require("plugins")
-  require("keybindings")
-	require("theme")
-  end
+-- sleepy.lua the configuration of Sleepy-Nvim
+require("plugins")
+require("keybindings")
+require("theme")
 
-init()
+if vim.g.neovide then
+  vim.o.guifont = "Comic Mono:h11.8"
+  vim.wo.number = true
+  vim.opt.linespace = 0
+  vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_bottom = 0
+  vim.g.neovide_padding_right = 0 
+  vim.g.neovide_padding_left = 0
+end
 
 vim.wo.number = true
 vim.o.expandtab = true

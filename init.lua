@@ -13,4 +13,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Source the main source code
+require("sleepy-init")
 require("sleepy")

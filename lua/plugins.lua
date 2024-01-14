@@ -6,11 +6,7 @@ require("lazy").setup({
   -- Modeline for Sleepy
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
   -- Makes Syntax Highlighting 10x better
-  { "nvim/nvim-treesitter", 
-    config = function()
-      vim.cmd(":TSUpdate")
-    end
-  },
+  { "nvim/nvim-treesitter", build = ":TSUpdate" },
   -- File Finder/Project Manager
   { "nvim-telescope/telescope.nvim", tag = "0.1.5", branch = "0.1.x", 
     dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } },
@@ -84,15 +80,24 @@ require("lazy").setup({
  },
 
   -- Nvim Discord status to be fancy
-  { "andweeb/presence.nvim" },
+  { "andweeb/presence.nvim",
+    config = function()
+      require("presence").setup({
+        neovim_image_text = "Sleepy-Nvim",
+        enable_line_number = true,
+        editing_text = "Currently editing %s",
+        plugin_manager_text = "Managing plugins with Lazy.nvim"
+      })
+    end
+},
   -- Sleey startup time & extra information
   { "dstein64/vim-startuptime" },
 })
 
-local completed = vim.g.lsp_init_completed or false
-function lsp_init()
-  print("Now installing TreeSitter support servers...") 
- 
+local sleepy_module = require("sleepy-init")
+local completed = true -- change this line manually upon first install
+
+function lsp_init() 
   local languages = {
     "bash", "c", "c_sharp", "clojure", "cmake", "commonlisp", "cpp", "css",
     "dockerfile", "elixir", "elm", "gdscript", "git_config", "git_rebase",
@@ -121,16 +126,18 @@ function lsp_init()
     "golangci-lint", "htmlhint", "markdownlint", "pylint", "typos" 
   }
 
+  sleepy_module.sleepy_log("Now installing TreeSitter support servers...")
   for _, lang in ipairs(languages) do
     vim.cmd(":noautocmd silent! TSInstall " .. lang)
   end
+
+  sleepy_module.sleepy_log("Now installing LSP, Debug, & Lint services...")
   for _, lsps in ipairs(lsp_servers) do
     vim.cmd(":noautocmd silent! MasonInstall " .. lsps )
   end
 
-  print("=+DONE+=")
-  -- set completion to true to save for future sessions
-  vim.g.lsp_init_completed = true
+  sleepy_module.sleepy_log("=+DONE+=")
+  completed = true
 end
 
 if not completed then

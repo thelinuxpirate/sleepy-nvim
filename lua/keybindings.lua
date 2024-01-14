@@ -19,9 +19,9 @@ wk.register({
   },
   j = {
     name = "Buffer Management",
-    s = { "<cmd>ls<cr>", "List Buffers", },
+    s = { "<cmd>Telescope buffers<cr>", "List/Switch Buffers", },
     k = { "<cmd>bd<cr>", "Kill Current Buffer", },
---    d = { "<cmd> <cr>", "Kill Specific Buffer", }, 
+    d = { "<cmd> <cr>", "Kill Specific Buffer", }, 
     _ = { "<cmd> <cr>", "", },
     _ = { "<cmd> <cr>", "", },
     _ = { "<cmd> <cr>", "", },

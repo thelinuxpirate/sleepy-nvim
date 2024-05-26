@@ -1,6 +1,6 @@
 # Sleepy Nvim
 
-Sleepy Nvim is my own Neovim configuration of the glorious Nvchad distro
+Sleepy Nvim is my own Neovim configuration built on top of the glorious Nvchad distro
 
 ### Dependencies
 ```

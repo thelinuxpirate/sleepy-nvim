@@ -1,10 +1,30 @@
 require "nvchad.mappings"
 
--- add yours here
+local wk = require("which-key")
+local default_opts = { noremap = true }
+wk.register(mappings, opts)
 
-local map = vim.keymap.set
+wk.register({
+  f = {
+    name = "File Management",
+    f = { "<cmd>lua require('fzf-lua').files()<cr>", "Find File", default_opts },
+    F = { "<cmd>lua require('fzf-lua').files({ resume = true })<cr>", "Find File", default_opts },
+    r = { "<cmd>lua require('fzf-lua').oldfiles()<cr>", "Open Recent File", noremap = false },
+  },
+  j = {
+    name = "Buffer Management",
+    s = { "<cmd>lua require('fzf-lua').buffers()<cr>", "List/Switch Buffers", },
+    k = { "<cmd>bd<cr>", "Kill Current Buffer", },
+    d = { "<cmd> <cr>", "Kill Specific Buffer", },
+    ["<Tab>"] = { "<cmd>bnext <cr>", "Switch to Next Buffer", },
+    ["<Space>"] = { "<cmd>bprevious <cr>", "Switch to Prev Buffer", },
+    _ = { "<cmd> <cr>", "", },
+    _ = { "<cmd> <cr>", "", },
+    _ = { "<cmd> <cr>", "", },
+    _ = { "<cmd> <cr>", "", },
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+  },
+}, { prefix = "<leader>" })
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+wk.register({ -- Localleader bindings 
+}, { prefix = "<localleader>" })

@@ -66,6 +66,48 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" }
   },
 
+  { -- Project Manager
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    config = function ()
+      require("harpoon"):setup()
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
+
+  { -- Luarocks API
+    "vhyrro/luarocks.nvim",
+    lazy = false,
+    priority = 1000,
+    config = true,
+  },
+
+  { -- Notes Manager
+    "nvim-neorg/neorg",
+    config = function()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {},
+          ["core.completion"] = {
+            config = {
+              engine = "nvim-cmp"
+            }
+          },
+          ["core.integrations.image"] = {},
+          ["core.latex.renderer"] = {},
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/System/Notes",
+              },
+            },
+          },
+        },
+      })
+    end,
+    dependencies = { "luarocks.nvim" },
+    },
+
   { -- Display Images
     "edluffy/hologram.nvim",
     config = function()
@@ -92,12 +134,19 @@ return {
     })
     end
   },
+
+  { -- Markdown Preview
+    "ellisonleao/glow.nvim",
+    config = true,
+    cmd = "Glow"
+  },
+
   -- Misc
-  { -- Highlight word under cursor
+  { -- Highlight Word Under Cursor
     "yamatsum/nvim-cursorline",
     lazy = false,
     config = function()
-      require('nvim-cursorline').setup {
+      require("nvim-cursorline").setup {
         cursorline = {
           enable = true,
           timeout = 1000,
@@ -111,4 +160,31 @@ return {
     }
     end
   },
+
+  { -- A Minimap
+    "echasnovski/mini.map",
+    version = "*",
+    config = function()
+      require("mini.map").setup({
+        window = {
+          focusable = true,
+          side = 'right',
+          show_integration_count = true,
+        }
+      })
+    end
+  },
+
+  {
+    "andweeb/presence.nvim",
+    lazy = false,
+    config = function()
+      require("presence").setup({
+        auto_update = true,
+        enable_line_number = true,
+        show_time = true,
+        neovim_image_text = "Sleepy-NvChad",
+      })
+    end
+  }
 }

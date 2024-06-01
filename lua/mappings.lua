@@ -21,10 +21,7 @@ wk.register({
     d = { "<cmd> <cr>", "Kill Specific Buffer", default },
     ["<Tab>"] = { "<cmd>bnext <cr>", "Switch to Next Buffer", default },
     ["<Space>"] = { "<cmd>bprevious <cr>", "Switch to Prev Buffer", default },
-    _ = { "<cmd> <cr>", "", default },
-    _ = { "<cmd> <cr>", "", default },
-    _ = { "<cmd> <cr>", "", default },
-    _ = { "<cmd> <cr>", "", default },
+--    _ = { "<cmd> <cr>", "", default },
   },
 
   w = {
@@ -75,6 +72,6 @@ wk.register({ -- Localleader bindings
 -- Keymap Rules
 keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", default) -- Disable Highlight After Search
 keymap("t", "<Esc><Esc>", "C-c", { desc = "Exit Terminal" }) -- Exit Terminal
-keymap("n", "<M-e>", "<Esc>", quiet) -- Alt-E acts as <Esc> x3
-keymap("i", "<M-e>", "<Esc>", quiet)
+keymap("n", "<M-e>", "<Esc>", quiet)
+keymap("i", "<M-e>", "<Esc>", quiet) -- Alt-E acts as <Esc> x3
 keymap("v", "<M-e>", "<Esc>", quiet)

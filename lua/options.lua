@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== Sleepy-NvChad Configuration ====================
 =====================================================================
@@ -19,7 +18,6 @@
 ========                                                     ========
 =====================================================================
 =====================================================================
-
 --]]
 
 require "nvchad.options"
@@ -48,7 +46,7 @@ opt.hlsearch = true
 
 -- neovide conditions
 if vim.g.neovide then
-  o.guifont = "Comic Mono:h12.75"
+  o.guifont = "Comic Mono:h12.75", "Arimo Nerd Font:h13.15"
   g.neovide_padding_top = 0
   g.neovide_padding_bottom = 0
   g.neovide_padding_right = 0

@@ -9,7 +9,7 @@ wk.register(mappings, opts)
 wk.register({
   f = {
     name = "File Management",
-    f = { "<cmd>lua require('fzf-lua').files()<cr>", "Find File", default },
+    f = { "<cmd>Telescope file_browser<cr>", "Find File", default },
     F = { "<cmd>lua require('fzf-lua').files({ resume = true })<cr>", "Find File", default },
     r = { "<cmd>lua require('fzf-lua').oldfiles()<cr>", "Open Recent File", default },
   },
@@ -70,8 +70,9 @@ wk.register({ -- Localleader bindings
 }, { prefix = "<localleader>" })
 
 -- Keymap Rules
-keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", default) -- Disable Highlight After Search
+keymap("n", "<Esc>", "<cmd>nohlsearch<cr>", default) -- Disable Highlight After Search
 keymap("t", "<Esc><Esc>", "C-c", { desc = "Exit Terminal" }) -- Exit Terminal
+keymap("n", "-", "<cmd>Oil<cr>", default)
 keymap("n", "<M-e>", "<Esc>", quiet)
 keymap("i", "<M-e>", "<Esc>", quiet) -- Alt-E acts as <Esc> x3
 keymap("v", "<M-e>", "<Esc>", quiet)

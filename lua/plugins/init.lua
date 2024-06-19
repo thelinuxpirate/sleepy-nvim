@@ -10,7 +10,7 @@ return {
   -- UI
   {
     "stevearc/conform.nvim",
-    event = 'BufWritePre',
+    event = "BufWritePre",
     config = function()
       require "configs.conform"
     end,
@@ -46,17 +46,13 @@ return {
   },
 
   -- Util
-  { -- File Finder
-    "ibhagwan/fzf-lua",
-    event = "BufRead",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("configs.fzf")
-    end
+  { -- Telescope Plugin
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
   { -- File Manager
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     lazy = false,
     config = function()
       require("oil").setup({
@@ -111,7 +107,7 @@ return {
   { -- Display Images
     "edluffy/hologram.nvim",
     config = function()
-      require('hologram').setup{
+      require("hologram").setup{
         auto_display = true
       }
     end
@@ -130,8 +126,8 @@ return {
                   append = true,
               },
           },
-      },
-    })
+        },
+      })
     end
   },
 
@@ -168,7 +164,7 @@ return {
       require("mini.map").setup({
         window = {
           focusable = true,
-          side = 'right',
+          side = "right",
           show_integration_count = true,
         }
       })
@@ -183,7 +179,7 @@ return {
         auto_update = true,
         enable_line_number = true,
         show_time = true,
-        neovim_image_text = "Sleepy-NvChad",
+        neovim_image_text = "NvChad",
       })
     end
   }

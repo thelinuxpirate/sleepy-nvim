@@ -17,22 +17,28 @@ return {
   },
 
   -- LSP, Lint, & Grammar
-  { -- LSP
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("nvchad.configs.lspconfig").defaults()
-      require("configs.lspconfig")
-    end,
-  },
-
-  { -- LSP
+  { -- LSP Package Manager
   	"williamboman/mason.nvim",
+    lazy = false,
   	opts = {
   		ensure_installed = {
   			"lua-language-server", "stylua",
   			"html-lsp", "css-lsp" , "prettier"
   		},
   	},
+    config = function() 
+      require("mason").setup({
+        PATH = "prepend"
+      })
+    end
+  },
+
+  { -- LSP Configuration
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+      require("configs.lspconfig")
+    end,
   },
 
   { -- Syntax Highlighting
@@ -48,6 +54,9 @@ return {
   -- Util
   { -- Telescope Plugin
     "nvim-telescope/telescope-file-browser.nvim",
+    config = function()
+      require("configs.telescope")
+    end,
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
@@ -70,39 +79,6 @@ return {
     end,
     dependencies = { "nvim-lua/plenary.nvim" }
   },
-
-  { -- Luarocks API
-    "vhyrro/luarocks.nvim",
-    lazy = false,
-    priority = 1000,
-    config = true,
-  },
-
-  { -- Notes Manager
-    "nvim-neorg/neorg",
-    config = function()
-      require("neorg").setup({
-        load = {
-          ["core.defaults"] = {},
-          ["core.completion"] = {
-            config = {
-              engine = "nvim-cmp"
-            }
-          },
-          ["core.integrations.image"] = {},
-          ["core.latex.renderer"] = {},
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/System/Notes",
-              },
-            },
-          },
-        },
-      })
-    end,
-    dependencies = { "luarocks.nvim" },
-    },
 
   { -- Display Images
     "edluffy/hologram.nvim",

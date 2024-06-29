@@ -8,17 +8,17 @@ wk.register(mappings, opts)
 
 wk.register({
   f = {
-    name = "File Management",
-    f = { "<cmd>Telescope file_browser<cr>", "Find File", default },
-    F = { "<cmd>lua require('fzf-lua').files({ resume = true })<cr>", "Find File", default },
-    r = { "<cmd>lua require('fzf-lua').oldfiles()<cr>", "Open Recent File", default },
+    name = "Files (Telescope)",
+    f = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({cwd = vim.fn.expand('%:p:h')})<cr>", "Find Files (CWD)", default },
+    F = { "<cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>", "Find Files (~/)", default },
+    d = { "<cmd>lua require('telescope.builtin').man_pages()<cr>", "Man Docs", default },
+    r = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Open Recent Files", default },
   },
 
   j = {
     name = "Buffer Management",
-    s = { "<cmd>lua require('fzf-lua').buffers()<cr>", "List/Switch Buffers", default },
+    s = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "List/Switch Buffers", default },
     k = { "<cmd>bd<cr>", "Kill Current Buffer", default },
-    d = { "<cmd> <cr>", "Kill Specific Buffer", default },
     ["<Tab>"] = { "<cmd>bnext <cr>", "Switch to Next Buffer", default },
     ["<Space>"] = { "<cmd>bprevious <cr>", "Switch to Prev Buffer", default },
 --    _ = { "<cmd> <cr>", "", default },

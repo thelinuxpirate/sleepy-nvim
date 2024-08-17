@@ -16,6 +16,15 @@ return {
     end,
   },
 
+  {
+    "kevinhwang91/nvim-hlslens",
+    lazy = false,
+    config = function()
+      require("hlslens").setup()
+    end,
+    dependencies = { "kevinhwang91/nvim-ufo", "kevinhwang91/promise-async" }
+  },
+
   -- LSP, Lint, & Grammar
   { -- LSP Package Manager
   	"williamboman/mason.nvim",
@@ -26,7 +35,7 @@ return {
   			"html-lsp", "css-lsp" , "prettier"
   		},
   	},
-    config = function() 
+    config = function()
       require("mason").setup({
         PATH = "prepend"
       })
@@ -60,6 +69,14 @@ return {
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
+  { -- File Finder & FZF Support
+    "ibhagwan/fzf-lua",
+    config = function()
+      require("fzf-lua").setup()
+    end,
+    dependencies = { "nvim-tree/nvim-web-devicons" }
+  },
+
   { -- File Manager
     "stevearc/oil.nvim",
     lazy = false,
@@ -80,12 +97,32 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" }
   },
 
+  { -- Sessions for Neovim 
+    "echasnovski/mini.sessions",
+    version = "*",
+    config = function()
+      require("mini.sessions").setup({
+        autowrite = true,
+        directory = "$HOME/.config/nvim/",
+        filename = "Session.vim"
+      })
+    end
+  },
+
   { -- Display Images
     "edluffy/hologram.nvim",
     config = function()
       require("hologram").setup{
         auto_display = true
       }
+    end
+  },
+
+  { -- Allows Saving Changes as Root
+    "lambdalisue/vim-suda",
+    lazy = false,
+    config = function()
+      vim.g.suda_smart_edit = 1
     end
   },
 
@@ -107,10 +144,28 @@ return {
     end
   },
 
-  { -- Markdown Preview
-    "ellisonleao/glow.nvim",
-    config = true,
-    cmd = "Glow"
+  { -- Neovim Clipboard + FZF
+    "AckslD/nvim-neoclip.lua",
+    config = function()
+      require("neoclip").setup({
+        enable_persistent_memory = true,
+        enable_macro_history = true,
+        content_spec_column = true,
+        preview = true,
+      })
+    end,
+    dependencies = { "ibhagwan/fzf-lua", "kkharji/sqlite.lua" }
+  },
+
+  { -- Trims Whitespace
+    "cappyzawa/trim.nvim",
+    config = function()
+      require("trim").setup({
+        trim_on_write = true,
+        highlight = true,
+        highlight_bg = "#e5e9f0",
+      })
+    end
   },
 
   -- Misc
@@ -133,6 +188,21 @@ return {
     end
   },
 
+  { -- Markdown Preview
+    "ellisonleao/glow.nvim",
+    config = true,
+    cmd = "Glow"
+  },
+
+  { -- A Toggleable Scrollbar
+    "petertriho/nvim-scrollbar",
+    lazy = false,
+    config = function()
+      require("scrollbar").setup()
+    end,
+    dependencies = { "kevinhwang91/nvim-hlslens", "lewis6991/gitsigns.nvim" }
+  },
+
   { -- A Minimap
     "echasnovski/mini.map",
     version = "*",
@@ -147,7 +217,7 @@ return {
     end
   },
 
-  {
+  { -- Discord Presence
     "andweeb/presence.nvim",
     lazy = false,
     config = function()

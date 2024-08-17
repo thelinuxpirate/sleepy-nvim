@@ -1,6 +1,8 @@
 require "nvchad.mappings"
 
 local wk = require("which-key")
+local api = vim.api
+local cmd = vim.cmd
 local keymap = vim.api.nvim_set_keymap
 local default = { noremap = true }
 local quiet = { noremap = true, silent = true }
@@ -21,7 +23,13 @@ wk.register({
     k = { "<cmd>bd<cr>", "Kill Current Buffer", default },
     ["<Tab>"] = { "<cmd>bnext <cr>", "Switch to Next Buffer", default },
     ["<Space>"] = { "<cmd>bprevious <cr>", "Switch to Prev Buffer", default },
---    _ = { "<cmd> <cr>", "", default },
+  },
+
+  c = {
+    name = "Clipboard",
+    f = { "<cmd>lua require('neoclip.fzf')()<cr>", "Open Menu", default },
+    t = { "<cmd>lua require('neoclip.fzf').toggle()<cr>", "Toggle Clipboard Registration", default },
+    c = { "<cmd>lua require('neoclip').clear_history()<cr>", "Clear Clipboard History", default },
   },
 
   w = {
@@ -34,6 +42,8 @@ wk.register({
     l = { "<cmd>bd | close<cr>", "Kill Buffer & Window", default },
   }
 }, { prefix = "<leader>" })
+
+-- _ = { "<cmd> <cr>", "", default },
 
 wk.register({ -- Localleader bindings
   w = {
@@ -65,14 +75,26 @@ wk.register({ -- Localleader bindings
   m = {
    name = "Ui",
     m = { "<cmd>lua require('mini.map').toggle()<cr>", "Toggle Minimap", default },
-    s = { "<cmd>lua require('scrollbar').ScrollbarToggle()<cr>", "Toggle Scrollbar", default },
+    s = { "<cmd>lua require('scrollbar.handlers').ScrollbarHandle()<cr>", "Toggle Scrollbar", default },
   }
 }, { prefix = "<localleader>" })
 
--- Keymap Rules
-keymap("n", "<Esc>", "<cmd>nohlsearch<cr>", default) -- Disable Highlight After Search
-keymap("t", "<Esc><Esc>", "C-c", { desc = "Exit Terminal" }) -- Exit Terminal
-keymap("n", "-", "<cmd>Oil<cr>", default)
-keymap("n", "<M-e>", "<Esc>", quiet)
-keymap("i", "<M-e>", "<Esc>", quiet) -- Alt-E acts as <Esc> x3
-keymap("v", "<M-e>", "<Esc>", quiet)
+-- Keymaps
+api.nvim_set_keymap("n", "<Esc>", "<cmd>nohlsearch<cr>", default) -- Disable Highlight After Search
+api.nvim_set_keymap("t", "<Esc><Esc>", "C-c", { desc = "Exit Terminal" }) -- Exit Terminal
+api.nvim_set_keymap("n", "-", "<cmd>Oil<cr>", default)
+api.nvim_set_keymap("n", "<M-e>", "<Esc>", quiet) -- Alt-E acts as <Esc> x3
+api.nvim_set_keymap("i", "<M-e>", "<Esc>", quiet)
+api.nvim_set_keymap("v", "<M-e>", "<Esc>", quiet)
+
+-- Hlslens Keymaps
+api.nvim_set_keymap('n', 'n',
+    [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    quiet)
+api.nvim_set_keymap('n', 'N',
+    [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    quiet)
+api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], quiet)
+api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], quiet)
+api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], quiet)
+api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], quiet)

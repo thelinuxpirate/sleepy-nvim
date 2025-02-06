@@ -1,4 +1,5 @@
 return {
+  -- UI
   { -- Dashboard for Sleepy
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
@@ -7,7 +8,7 @@ return {
    end,
     dependencies = { "nvim-tree/nvim-web-devicons" }
   },
-  -- UI
+
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
@@ -54,9 +55,13 @@ return {
   	"nvim-treesitter/nvim-treesitter",
   	opts = {
   		ensure_installed = {
-  		  "vim", "lua", "vimdoc",
-        "html", "css"
-  		},
+        "asm", "bash", "c", "c_sharp", "cmake", "css",
+        "diff", "elixir", "gdscript", "go", "haskell", "html",
+        "javascript", "json", "julia", "kotlin", "lua", "markdown",
+        "meson", "nim", "nix", "norg", "perl", "python",
+        "ron", "rust", "scss", "tmux", "tsx", "typescript",
+        "vue", "xml", "yaml", "zig"
+      },
   	},
   },
 
@@ -168,6 +173,13 @@ return {
     end
   },
 
+  { -- Practice Typing Tool
+    "nvzone/typr",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = { "Typr", "TyprStats" }
+  },
+
   -- Misc
   { -- Highlight Word Under Cursor
     "yamatsum/nvim-cursorline",
@@ -192,15 +204,6 @@ return {
     "ellisonleao/glow.nvim",
     config = true,
     cmd = "Glow"
-  },
-
-  { -- A Toggleable Scrollbar
-    "petertriho/nvim-scrollbar",
-    lazy = false,
-    config = function()
-      require("scrollbar").setup()
-    end,
-    dependencies = { "kevinhwang91/nvim-hlslens", "lewis6991/gitsigns.nvim" }
   },
 
   { -- A Minimap

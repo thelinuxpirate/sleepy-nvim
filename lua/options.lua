@@ -29,7 +29,7 @@ local opt = vim.opt
 
 o.spelllang = "en_us"
 o.cursorlineopt = "both"
-o.foldcolumn = "1" 
+o.foldcolumn = "1"
 o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldenable = true
@@ -50,7 +50,7 @@ opt.hlsearch = true
 
 -- NeoVide Settings
 if g.neovide then
-  o.guifont = "Comic Mono:h12.75", "Arimo Nerd Font:h13.15"
+  o.guifont = "Comic Mono:h12.75"
   g.neovide_padding_top = 0
   g.neovide_padding_bottom = 0
   g.neovide_padding_right = 0
@@ -60,3 +60,5 @@ if g.neovide then
   wo.number = true
   opt.relativenumber = false
 end
+
+o.cursorlineopt ='both'

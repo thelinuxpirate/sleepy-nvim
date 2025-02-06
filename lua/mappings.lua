@@ -1,100 +1,69 @@
 require "nvchad.mappings"
 
-local wk = require("which-key")
-local api = vim.api
-local cmd = vim.cmd
-local keymap = vim.api.nvim_set_keymap
-local default = { noremap = true }
-local quiet = { noremap = true, silent = true }
-wk.register(mappings, opts)
+local map = vim.keymap.set
 
-wk.register({
-  f = {
-    name = "Files (Telescope)",
-    f = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({cwd = vim.fn.expand('%:p:h')})<cr>", "Find Files (CWD)", default },
-    F = { "<cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>", "Find Files (~/)", default },
-    d = { "<cmd>lua require('telescope.builtin').man_pages()<cr>", "Man Docs", default },
-    r = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Open Recent Files", default },
-  },
+-- Leader key mappings
+  -- Files
+map("n", "<leader>.", "<cmd>lua require('telescope').extensions.file_browser.file_browser({cwd = vim.fn.expand('%:p:h')})<cr>", { desc = "Find Files (CWD)" })
+map("n", "<leader>ff", "<cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>", { desc = "Find Files (~/)" })
+map("n", "<leader>fm", "<cmd>lua require('telescope.builtin').man_pages()<cr>", { desc = "Man Docs" })
+map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", { desc = "Open Recent Files" })
+map("n", "<leader>/", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", { desc = "Open Recent Files" })
 
-  j = {
-    name = "Buffer Management",
-    s = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "List/Switch Buffers", default },
-    k = { "<cmd>bd<cr>", "Kill Current Buffer", default },
-    ["<Tab>"] = { "<cmd>bnext <cr>", "Switch to Next Buffer", default },
-    ["<Space>"] = { "<cmd>bprevious <cr>", "Switch to Prev Buffer", default },
-  },
+  -- Buffers
+map("n", "<leader>bs", "<cmd>lua require('telescope.builtin').buffers()<cr>", { desc = "List/Switch Buffers" })
+map("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Kill Current Buffer" })
+map("n", "<leader>b.", "<cmd>bnext<cr>", { desc = "Switch to Next Buffer" })
+map("n", "<leader>b,", "<cmd>bprevious<cr>", { desc = "Switch to Prev Buffer" })
 
-  c = {
-    name = "Clipboard",
-    f = { "<cmd>lua require('neoclip.fzf')()<cr>", "Open Menu", default },
-    t = { "<cmd>lua require('neoclip.fzf').toggle()<cr>", "Toggle Clipboard Registration", default },
-    c = { "<cmd>lua require('neoclip').clear_history()<cr>", "Clear Clipboard History", default },
-  },
+map("n", "<leader>cf", "<cmd>lua require('neoclip.fzf')()<cr>", { desc = "Open Menu" })
+map("n", "<leader>ct", "<cmd>lua require('neoclip.fzf').toggle()<cr>", { desc = "Toggle Clipboard Registration" })
+map("n", "<leader>cc", "<cmd>lua require('neoclip').clear_history()<cr>", { desc = "Clear Clipboard History" })
 
-  w = {
-    name = "Window",
-    v = { "<cmd>vsp<cr>", "Vertical Split", default },
-    h = { "<cmd>sp<cr>", "Horizontal Split", default },
-    k = { "<cmd>bd<cr>", "Kill Buffer Only", default },
-    c = { "<cmd>close<cr>", "Kill Current Window", default },
-    a = { "<cmd>only<cr>", "Kill All Win but Current", default },
-    l = { "<cmd>bd | close<cr>", "Kill Buffer & Window", default },
-  }
-}, { prefix = "<leader>" })
+map("n", "<leader>wv", "<cmd>vsp<cr>", { desc = "Vertical Split" })
+map("n", "<leader>wh", "<cmd>sp<cr>", { desc = "Horizontal Split" })
+map("n", "<leader>wk", "<cmd>bd<cr>", { desc = "Kill Buffer Only" })
+map("n", "<leader>wc", "<cmd>close<cr>", { desc = "Kill Current Window" })
+map("n", "<leader>wa", "<cmd>only<cr>", { desc = "Kill All Win but Current" })
+map("n", "<leader>wl", "<cmd>bd | close<cr>", { desc = "Kill Buffer & Window" })
 
--- _ = { "<cmd> <cr>", "", default },
+-- Localleader key mappings
+map("n", "<localleader>wh", "<cmd>wincmd h<cr>", { desc = "Focus Left" })
+map("n", "<localleader>wj", "<cmd>wincmd j<cr>", { desc = "Focus Down" })
+map("n", "<localleader>wk", "<cmd>wincmd k<cr>", { desc = "Focus Up" })
+map("n", "<localleader>wl", "<cmd>wincmd l<cr>", { desc = "Focus Right" })
 
-wk.register({ -- Localleader bindings
-  w = {
-    name = "Window",
-    -- Frame Focus
-    h = { "<cmd>wincmd h<cr>", "Focus Left", default },
-    j = { "<cmd>wincmd j<cr>", "Focus Down", default },
-    k = { "<cmd>wincmd k<cr>", "Focus Up", default },
-    l = { "<cmd>wincmd l<cr>", "Focus Right", default },
-    -- Move Frame
-    H = { "<cmd>wincmd H<cr>", "Move Left", default },
-    J = { "<cmd>wincmd J<cr>", "Move Down", default },
-    K = { "<cmd>wincmd K<cr>", "Move Up", default },
-    L = { "<cmd>wincmd L<cr>", "Move Right", default },
-    -- Shift Frame
-    r = { "<cmd>wincmd r<cr>", "Shift Down/Right", default },
-    R = { "<cmd>wincmd R<cr>", "Shift Up/Left", default },
-    x = { "<cmd>wincmd x<cr>", "Switch Current for Next", default },
-    -- Resize Frame
-    f = { "<cmd>resize<cr>", "Fullscreen Current", default },
-    F = { "<cmd>resize!<cr>", "Restore All", default },
-    i = { "<cmd>resize +N<cr>", "+ Height", default },
-    o = { "<cmd>resize -N<cr>", "- Height", default },
-    I = { "<cmd>vertical resize +N<cr>", "+ Width", default },
-    O = { "<cmd>vertical resize -N<cr>", "- Width", default },
-    d = { "<cmd>wincmd =<cr>", "Reset All Sizes", default },
-  },
+map("n", "<localleader>wH", "<cmd>wincmd H<cr>", { desc = "Move Left" })
+map("n", "<localleader>wJ", "<cmd>wincmd J<cr>", { desc = "Move Down" })
+map("n", "<localleader>wK", "<cmd>wincmd K<cr>", { desc = "Move Up" })
+map("n", "<localleader>wL", "<cmd>wincmd L<cr>", { desc = "Move Right" })
 
-  m = {
-   name = "Ui",
-    m = { "<cmd>lua require('mini.map').toggle()<cr>", "Toggle Minimap", default },
-    s = { "<cmd>lua require('scrollbar.handlers').ScrollbarHandle()<cr>", "Toggle Scrollbar", default },
-  }
-}, { prefix = "<localleader>" })
+map("n", "<localleader>wr", "<cmd>wincmd r<cr>", { desc = "Shift Down/Right" })
+map("n", "<localleader>wR", "<cmd>wincmd R<cr>", { desc = "Shift Up/Left" })
+map("n", "<localleader>wx", "<cmd>wincmd x<cr>", { desc = "Switch Current for Next" })
 
--- Keymaps
-api.nvim_set_keymap("n", "<Esc>", "<cmd>nohlsearch<cr>", default) -- Disable Highlight After Search
-api.nvim_set_keymap("t", "<Esc><Esc>", "C-c", { desc = "Exit Terminal" }) -- Exit Terminal
-api.nvim_set_keymap("n", "-", "<cmd>Oil<cr>", default)
-api.nvim_set_keymap("n", "<M-e>", "<Esc>", quiet) -- Alt-E acts as <Esc> x3
-api.nvim_set_keymap("i", "<M-e>", "<Esc>", quiet)
-api.nvim_set_keymap("v", "<M-e>", "<Esc>", quiet)
+map("n", "<localleader>wf", "<cmd>resize<cr>", { desc = "Fullscreen Current" })
+map("n", "<localleader>wF", "<cmd>resize!<cr>", { desc = "Restore All" })
+map("n", "<localleader>wi", "<cmd>resize +N<cr>", { desc = "+ Height" })
+map("n", "<localleader>wo", "<cmd>resize -N<cr>", { desc = "- Height" })
+map("n", "<localleader>wI", "<cmd>vertical resize +N<cr>", { desc = "+ Width" })
+map("n", "<localleader>wO", "<cmd>vertical resize -N<cr>", { desc = "- Width" })
+map("n", "<localleader>wd", "<cmd>wincmd =<cr>", { desc = "Reset All Sizes" })
 
--- Hlslens Keymaps
-api.nvim_set_keymap('n', 'n',
-    [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-    quiet)
-api.nvim_set_keymap('n', 'N',
-    [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-    quiet)
-api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], quiet)
-api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], quiet)
-api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], quiet)
-api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], quiet)
+map("n", "<localleader>mm", "<cmd>lua require('mini.map').toggle()<cr>", { desc = "Toggle Minimap" })
+
+-- Additional keymaps
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Disable Highlight After Search" })
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit Terminal" })
+map("n", "-", "<cmd>Oil<cr>", { desc = "Open Oil" })
+map("n", "<M-e>", "<Esc>", { desc = "Alt-E acts as <Esc>" })
+map("i", "<M-e>", "<Esc>", { desc = "Alt-E acts as <Esc>" })
+map("v", "<M-e>", "<Esc>", { desc = "Alt-E acts as <Esc>" })
+
+-- Hlslens keymaps
+map("n", "n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+map("n", "N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+map("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+map("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+map("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+map("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], { silent = true })
